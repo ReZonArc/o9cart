@@ -1,0 +1,116 @@
+#!/bin/bash
+# Build documentation script
+
+echo "Building O9Cart Documentation..."
+
+# Create output directory
+mkdir -p docs/html
+
+# Create simple HTML structure
+cat > docs/html/index.html << 'EOF'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O9Cart Documentation</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .nav {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .nav-item {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+        .nav-item:hover {
+            background: #e9ecef;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .nav-item h3 {
+            margin: 0 0 0.5rem 0;
+            color: #2c3e50;
+        }
+        .nav-item p {
+            margin: 0;
+            color: #666;
+        }
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+            border-top: 1px solid #eee;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>O9Cart Documentation</h1>
+        <p>Comprehensive documentation for the advanced e-commerce platform</p>
+    </div>
+    
+    <div class="nav">
+        <a href="../architecture.md" class="nav-item">
+            <h3>🏗️ Technical Architecture</h3>
+            <p>System design, components, and architectural patterns</p>
+        </a>
+        
+        <a href="../developer-guide.md" class="nav-item">
+            <h3>👨‍💻 Developer Guide</h3>
+            <p>Development setup, coding standards, and workflow</p>
+        </a>
+        
+        <a href="../deployment.md" class="nav-item">
+            <h3>🚀 Deployment Guide</h3>
+            <p>Production deployment strategies and best practices</p>
+        </a>
+        
+        <a href="../database-schema.md" class="nav-item">
+            <h3>📊 Database Schema</h3>
+            <p>Complete database structure and relationships</p>
+        </a>
+        
+        <a href="../api-reference.md" class="nav-item">
+            <h3>🔌 API Documentation</h3>
+            <p>RESTful API reference and examples</p>
+        </a>
+        
+        <a href="../theme-development.md" class="nav-item">
+            <h3>🎨 Theme Development</h3>
+            <p>Custom theme creation and customization</p>
+        </a>
+    </div>
+    
+    <div class="footer">
+        <p>&copy; 2024 O9Cart Development Team. Licensed under GPL v3.</p>
+    </div>
+</body>
+</html>
+EOF
+
+echo "Documentation index created at docs/html/index.html"
+echo "To view the documentation, open docs/html/index.html in your browser"

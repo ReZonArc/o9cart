@@ -1,10 +1,10 @@
 {
-    "docs_directory": "docs",
+    "docs_directory": "../docs",
     "themes_directory": "themes",
 
-    "title": "My Project",
-    "tagline": "My Stylish Documentation",
-    "author": "I, Me & Myself",
+    "title": "O9Cart Documentation",
+    "tagline": "Advanced E-commerce Platform Documentation",
+    "author": "O9Cart Development Team",
     "image": "",
     "languages": {},
 
@@ -15,7 +15,7 @@
 
     "ignore": {
         "files": [],
-        "folders": []
+        "folders": ["api"]
     },
 
     "language": "en",
@@ -103,20 +103,23 @@
     "html": {
         "theme": "daux-blue",
         "breadcrumbs": true,
-		"breadcrumb_separator": "Chevrons",
+        "breadcrumb_separator": "Chevrons",
         "toggle_code": true,
-        "date_modified": false,
+        "date_modified": true,
         "auto_landing": true,
         "search": true,
-        "auto_toc": false,
+        "auto_toc": true,
         "inherit_index": false,
         "jump_buttons": true,
 
-        "repo": "",
+        "repo": "https://github.com/EchoCog/o9cart",
         "twitter": [],
         "links": {
+            "GitHub": "https://github.com/EchoCog/o9cart",
+            "API Reference": "api-reference"
         },
         "buttons": {
+            "Download": "https://github.com/EchoCog/o9cart/releases"
         },
 
         "google_analytics": false,
