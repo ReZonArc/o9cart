@@ -1,20 +1,147 @@
-# OpenCart
+# O9Cart - Advanced E-commerce Platform
 
 ## Overview
 
 [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%208.0-8892BF.svg?style=flat-square)](https://php.net/)
-[![GitHub release](https://img.shields.io/github/v/release/opencart/opencart)](https://github.com/opencart/opencart)
-[![Lint](https://github.com/opencart/opencart/actions/workflows/Lint.yml/badge.svg)](https://github.com/opencart/opencart/actions/workflows/Lint.yml)
+[![License](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](LICENSE.md)
+[![Documentation](https://img.shields.io/badge/docs-available-brightgreen.svg)](#documentation)
 
-OpenCart is a free open source e-commerce platform for online merchants. OpenCart provides a professional and reliable foundation from which to build a successful online store.
+O9Cart is an advanced e-commerce platform built on OpenCart foundations, providing a professional and reliable foundation for building successful online stores. This enhanced version includes additional features, improved architecture, and comprehensive documentation.
 
-## How to install
+## 🚀 Features
 
-Please read the [installation instructions](INSTALL.md) included in the repository or download file.
+- **Multi-vendor Support**: Built-in marketplace functionality
+- **Advanced Analytics**: Comprehensive reporting and analytics dashboard
+- **Modern UI/UX**: Responsive design with modern interface
+- **Extensible Architecture**: Plugin-based extension system
+- **API-First Design**: RESTful API for headless commerce
+- **Multi-language & Multi-currency**: Global commerce support
+- **Advanced SEO**: Built-in SEO optimization tools
+- **Performance Optimized**: Caching and optimization features
 
-## How to upgrade from previous versions
+## 🏗️ Architecture
 
-Please read the [upgrading instructions](UPGRADE.md) included in the repository or download file.
+O9Cart follows a modern MVC (Model-View-Controller) architecture with the following key components:
+
+```mermaid
+graph TB
+    subgraph "Frontend Layer"
+        A[Customer Interface]
+        B[Admin Interface]
+        C[API Gateway]
+    end
+    
+    subgraph "Application Layer"
+        D[Controllers]
+        E[Models]
+        F[Views]
+        G[Libraries]
+    end
+    
+    subgraph "Data Layer"
+        H[MySQL Database]
+        I[File Storage]
+        J[Cache Layer]
+    end
+    
+    A --> D
+    B --> D
+    C --> D
+    D --> E
+    D --> F
+    E --> H
+    F --> G
+    G --> I
+    G --> J
+```
+
+For detailed architecture documentation, see [Technical Architecture](docs/architecture.md).
+
+## 📋 Quick Start
+
+### Prerequisites
+
+- PHP 8.0 or higher
+- MySQL 8.0+ or MariaDB 10.3+
+- Apache/Nginx web server
+- Composer for dependency management
+
+### Installation
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/EchoCog/o9cart.git
+   cd o9cart
+   ```
+
+2. **Install dependencies**:
+   ```bash
+   composer install
+   ```
+
+3. **Configure the application**:
+   ```bash
+   cp upload/config-dist.php upload/config.php
+   cp upload/admin/config-dist.php upload/admin/config.php
+   ```
+
+4. **Set up the database and complete installation**:
+   - Visit your site URL
+   - Follow the installation wizard
+   - Remove the `/install` directory after completion
+
+For detailed installation instructions, see [INSTALL.md](INSTALL.md).
+
+## 🐳 Docker Development Environment
+
+Get started quickly with our Docker environment:
+
+```bash
+# Initialize and start the environment
+make init
+make build
+make up
+```
+
+Your store will be available at `http://localhost`.
+
+For more Docker commands and configuration, see the [Docker Development](#local-development-with-docker) section below.
+
+## 📚 Documentation
+
+- [📖 **Technical Architecture**](docs/architecture.md) - System architecture and design patterns
+- [🔧 **Developer Guide**](docs/developer-guide.md) - Development setup and guidelines  
+- [🚀 **Deployment Guide**](docs/deployment.md) - Production deployment strategies
+- [📊 **Database Schema**](docs/database-schema.md) - Database structure documentation
+- [🔌 **API Documentation**](docs/api-reference.md) - RESTful API reference
+- [🎨 **Theme Development**](docs/theme-development.md) - Custom theme creation
+- [📋 **Complete Documentation**](docs/index.md) - Full documentation index
+
+### Quick Links
+- [Installation Guide](INSTALL.md) - Get started quickly
+- [Docker Development](#local-development-with-docker) - Development with Docker
+- [API Reference](docs/api-reference.md) - REST API documentation
+- [Contributing Guidelines](#how-to-contribute) - How to contribute
+
+## 🛡️ System Requirements
+
+### Minimum Requirements
+- **PHP**: 8.0.2 or higher
+- **Database**: MySQL 8.0+ or MariaDB 10.3+
+- **Memory**: 64MB RAM minimum (128MB recommended)
+- **Storage**: 100MB disk space minimum
+
+### Recommended Environment
+- **PHP**: 8.1+ with OPcache enabled
+- **Database**: MySQL 8.0+ with InnoDB engine
+- **Web Server**: Apache 2.4+ with mod_rewrite or Nginx 1.18+
+- **Memory**: 256MB RAM or higher
+- **Storage**: SSD storage for better performance
+
+### Required PHP Extensions
+```
+curl, gd, zip, mysqli, pdo_mysql, mbstring, json, openssl, xml, fileinfo
+```
 
 ## Reporting a bug
 
