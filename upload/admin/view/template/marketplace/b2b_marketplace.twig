@@ -1,0 +1,663 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="float-end">
+        <button type="submit" form="form-b2b-marketplace" data-bs-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary">
+          <i class="fa-solid fa-save"></i>
+        </button>
+        <a href="{{ playground_deploy }}" data-bs-toggle="tooltip" title="{{ button_deploy_playground }}" class="btn btn-success" id="btn-deploy-playground">
+          <i class="fa-solid fa-rocket"></i>
+        </a>
+      </div>
+      <h1>{{ heading_title }}</h1>
+      <ol class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+          <li class="breadcrumb-item"><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ol>
+    </div>
+  </div>
+  
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-header">
+        <i class="fa-solid fa-building"></i> {{ heading_title }}
+      </div>
+      <div class="card-body">
+        <form id="form-b2b-marketplace" action="{{ save }}" method="post" enctype="multipart/form-data">
+          
+          <!-- Navigation Tabs -->
+          <ul class="nav nav-tabs" id="b2b-tabs" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="general-tab" data-bs-toggle="tab" data-bs-target="#general" type="button" role="tab">
+                <i class="fa-solid fa-cog"></i> {{ tab_general }}
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="multi-store-tab" data-bs-toggle="tab" data-bs-target="#multi-store" type="button" role="tab">
+                <i class="fa-solid fa-store"></i> {{ tab_multi_store }}
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="local-sales-tab" data-bs-toggle="tab" data-bs-target="#local-sales" type="button" role="tab">
+                <i class="fa-solid fa-map-marker-alt"></i> {{ tab_local_sales }}
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="playground-tab" data-bs-toggle="tab" data-bs-target="#playground" type="button" role="tab">
+                <i class="fa-solid fa-flask"></i> {{ tab_playground }}
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="member-linking-tab" data-bs-toggle="tab" data-bs-target="#member-linking" type="button" role="tab">
+                <i class="fa-solid fa-link"></i> {{ tab_member_linking }}
+              </button>
+            </li>
+          </ul>
+
+          <!-- Tab Content -->
+          <div class="tab-content" id="b2b-tab-content">
+            
+            <!-- General Settings Tab -->
+            <div class="tab-pane fade show active" id="general" role="tabpanel">
+              <div class="row mt-3">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <h5 class="mb-0">B2B Marketplace Settings</h5>
+                    </div>
+                    <div class="card-body">
+                      
+                      <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label" for="input-b2b-enabled">{{ entry_b2b_marketplace_enabled }}</label>
+                        <div class="col-sm-9">
+                          <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="input-b2b-enabled" name="b2b_marketplace_enabled" value="1" {% if b2b_marketplace_enabled %}checked{% endif %}>
+                            <label class="form-check-label" for="input-b2b-enabled"></label>
+                          </div>
+                          <div class="form-text">{{ help_b2b_marketplace_enabled }}</div>
+                        </div>
+                      </div>
+
+                      <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label" for="input-auto-approval">{{ entry_b2b_auto_approval }}</label>
+                        <div class="col-sm-9">
+                          <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="input-auto-approval" name="b2b_auto_approval" value="1" {% if b2b_auto_approval %}checked{% endif %}>
+                            <label class="form-check-label" for="input-auto-approval"></label>
+                          </div>
+                          <div class="form-text">{{ help_b2b_auto_approval }}</div>
+                        </div>
+                      </div>
+
+                      <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label" for="input-min-order">{{ entry_b2b_min_order_amount }}</label>
+                        <div class="col-sm-9">
+                          <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            <input type="text" class="form-control" id="input-min-order" name="b2b_min_order_amount" value="{{ b2b_min_order_amount }}" placeholder="0.00">
+                          </div>
+                          <div class="form-text">{{ help_b2b_min_order_amount }}</div>
+                        </div>
+                      </div>
+
+                      <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label">{{ entry_b2b_payment_terms }}</label>
+                        <div class="col-sm-9">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="b2b_payment_terms[]" value="net15" id="term-net15" {% if 'net15' in b2b_payment_terms %}checked{% endif %}>
+                                <label class="form-check-label" for="term-net15">{{ text_payment_net15 }}</label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="b2b_payment_terms[]" value="net30" id="term-net30" {% if 'net30' in b2b_payment_terms %}checked{% endif %}>
+                                <label class="form-check-label" for="term-net30">{{ text_payment_net30 }}</label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="b2b_payment_terms[]" value="net60" id="term-net60" {% if 'net60' in b2b_payment_terms %}checked{% endif %}>
+                                <label class="form-check-label" for="term-net60">{{ text_payment_net60 }}</label>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="b2b_payment_terms[]" value="prepaid" id="term-prepaid" {% if 'prepaid' in b2b_payment_terms %}checked{% endif %}>
+                                <label class="form-check-label" for="term-prepaid">{{ text_payment_prepaid }}</label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="b2b_payment_terms[]" value="cod" id="term-cod" {% if 'cod' in b2b_payment_terms %}checked{% endif %}>
+                                <label class="form-check-label" for="term-cod">{{ text_payment_cod }}</label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label">{{ entry_b2b_pricing_tiers }}</label>
+                        <div class="col-sm-9">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="b2b_pricing_tiers[]" value="bronze" id="tier-bronze" {% if 'bronze' in b2b_pricing_tiers %}checked{% endif %}>
+                                <label class="form-check-label" for="tier-bronze">{{ text_tier_bronze }}</label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="b2b_pricing_tiers[]" value="silver" id="tier-silver" {% if 'silver' in b2b_pricing_tiers %}checked{% endif %}>
+                                <label class="form-check-label" for="tier-silver">{{ text_tier_silver }}</label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="b2b_pricing_tiers[]" value="gold" id="tier-gold" {% if 'gold' in b2b_pricing_tiers %}checked{% endif %}>
+                                <label class="form-check-label" for="tier-gold">{{ text_tier_gold }}</label>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="b2b_pricing_tiers[]" value="platinum" id="tier-platinum" {% if 'platinum' in b2b_pricing_tiers %}checked{% endif %}>
+                                <label class="form-check-label" for="tier-platinum">{{ text_tier_platinum }}</label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Multi-Store Configuration Tab -->
+            <div class="tab-pane fade" id="multi-store" role="tabpanel">
+              <div class="row mt-3">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <h5 class="mb-0">Multi-Store Synchronization</h5>
+                    </div>
+                    <div class="card-body">
+                      
+                      <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label" for="input-multi-store-sync">{{ entry_multi_store_sync }}</label>
+                        <div class="col-sm-9">
+                          <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="input-multi-store-sync" name="multi_store_sync" value="1" {% if multi_store_sync %}checked{% endif %}>
+                            <label class="form-check-label" for="input-multi-store-sync"></label>
+                          </div>
+                          <div class="form-text">{{ help_multi_store_sync }}</div>
+                        </div>
+                      </div>
+
+                      <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label" for="input-cross-inventory">{{ entry_cross_store_inventory }}</label>
+                        <div class="col-sm-9">
+                          <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="input-cross-inventory" name="cross_store_inventory" value="1" {% if cross_store_inventory %}checked{% endif %}>
+                            <label class="form-check-label" for="input-cross-inventory"></label>
+                          </div>
+                          <div class="form-text">{{ help_cross_store_inventory }}</div>
+                        </div>
+                      </div>
+
+                      <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label" for="input-unified-accounts">{{ entry_unified_b2b_accounts }}</label>
+                        <div class="col-sm-9">
+                          <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="input-unified-accounts" name="unified_b2b_accounts" value="1" {% if unified_b2b_accounts %}checked{% endif %}>
+                            <label class="form-check-label" for="input-unified-accounts"></label>
+                          </div>
+                          <div class="form-text">{{ help_unified_b2b_accounts }}</div>
+                        </div>
+                      </div>
+
+                      <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label">Available Stores</label>
+                        <div class="col-sm-9">
+                          <div class="table-responsive">
+                            <table class="table table-bordered">
+                              <thead>
+                                <tr>
+                                  <th>{{ column_name }}</th>
+                                  <th>URL</th>
+                                  <th>B2B Enabled</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {% for store in stores %}
+                                <tr>
+                                  <td>{{ store.name }}</td>
+                                  <td>{{ store.url }}</td>
+                                  <td>
+                                    <div class="form-check form-switch">
+                                      <input class="form-check-input" type="checkbox" name="store_b2b_enabled[{{ store.store_id }}]" value="1">
+                                    </div>
+                                  </td>
+                                </tr>
+                                {% endfor %}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Local Multi-Channel Sales Tab -->
+            <div class="tab-pane fade" id="local-sales" role="tabpanel">
+              <div class="row mt-3">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <h5 class="mb-0">Local Multi-Channel Sales Configuration</h5>
+                    </div>
+                    <div class="card-body">
+                      
+                      <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label" for="input-local-sales">{{ entry_local_sales_enabled }}</label>
+                        <div class="col-sm-9">
+                          <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="input-local-sales" name="local_sales_enabled" value="1" {% if local_sales_enabled %}checked{% endif %}>
+                            <label class="form-check-label" for="input-local-sales"></label>
+                          </div>
+                          <div class="form-text">{{ help_local_sales_enabled }}</div>
+                        </div>
+                      </div>
+
+                      <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label" for="input-member-linking">{{ entry_member_linking_enabled }}</label>
+                        <div class="col-sm-9">
+                          <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="input-member-linking" name="member_linking_enabled" value="1" {% if member_linking_enabled %}checked{% endif %}>
+                            <label class="form-check-label" for="input-member-linking"></label>
+                          </div>
+                          <div class="form-text">{{ help_member_linking_enabled }}</div>
+                        </div>
+                      </div>
+
+                      <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label" for="input-auto-cart">{{ entry_auto_cart_matching }}</label>
+                        <div class="col-sm-9">
+                          <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="input-auto-cart" name="auto_cart_matching" value="1" {% if auto_cart_matching %}checked{% endif %}>
+                            <label class="form-check-label" for="input-auto-cart"></label>
+                          </div>
+                          <div class="form-text">{{ help_auto_cart_matching }}</div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Playground Tab -->
+            <div class="tab-pane fade" id="playground" role="tabpanel">
+              <div class="row mt-3">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <h5 class="mb-0">{{ tab_playground }}</h5>
+                    </div>
+                    <div class="card-body">
+                      
+                      <div class="row mb-4">
+                        <div class="col-md-3">
+                          <div class="card text-center">
+                            <div class="card-body">
+                              <h5 class="card-title">{{ info_playground_status }}</h5>
+                              <div class="text-{{ playground_status.deployed ? 'success' : 'warning' }}">
+                                <i class="fa-solid fa-{{ playground_status.deployed ? 'check-circle' : 'exclamation-triangle' }} fa-2x"></i>
+                              </div>
+                              <p class="card-text">{{ playground_status.deployed ? 'Deployed' : 'Not Deployed' }}</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="card text-center">
+                            <div class="card-body">
+                              <h5 class="card-title">{{ info_tables_created }}</h5>
+                              <div class="text-{{ playground_status.tables_created ? 'success' : 'secondary' }}">
+                                <i class="fa-solid fa-{{ playground_status.tables_created ? 'database' : 'ban' }} fa-2x"></i>
+                              </div>
+                              <p class="card-text">{{ playground_status.tables_created ? 'Yes' : 'No' }}</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="card text-center">
+                            <div class="card-body">
+                              <h5 class="card-title">{{ info_sample_data }}</h5>
+                              <div class="text-{{ playground_status.sample_data ? 'success' : 'secondary' }}">
+                                <i class="fa-solid fa-{{ playground_status.sample_data ? 'box' : 'box-open' }} fa-2x"></i>
+                              </div>
+                              <p class="card-text">{{ playground_status.sample_data ? 'Available' : 'Not Available' }}</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="card text-center">
+                            <div class="card-body">
+                              <h5 class="card-title">{{ info_last_deployment }}</h5>
+                              <div class="text-info">
+                                <i class="fa-solid fa-calendar fa-2x"></i>
+                              </div>
+                              <p class="card-text">{{ playground_status.last_deployment ?? 'Never' }}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-12">
+                          <div class="d-grid gap-2">
+                            <button type="button" class="btn btn-success btn-lg" id="btn-deploy-playground-main">
+                              <i class="fa-solid fa-rocket"></i> {{ button_deploy_playground }}
+                            </button>
+                            {% if playground_status.deployed %}
+                            <a href="#" class="btn btn-info">
+                              <i class="fa-solid fa-eye"></i> {{ button_view_playground }}
+                            </a>
+                            {% endif %}
+                          </div>
+                          {% if not playground_status.deployed %}
+                          <div class="alert alert-warning mt-3">
+                            <i class="fa-solid fa-info-circle"></i> {{ warning_playground_not_deployed }}
+                          </div>
+                          {% endif %}
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Member Linking Tab -->
+            <div class="tab-pane fade" id="member-linking" role="tabpanel">
+              <div class="row mt-3">
+                <div class="col-12">
+                  
+                  <!-- Statistics Cards -->
+                  <div class="row mb-4">
+                    <div class="col-md-3">
+                      <div class="card text-center">
+                        <div class="card-body">
+                          <h5 class="card-title">{{ info_total_links }}</h5>
+                          <div class="text-primary">
+                            <i class="fa-solid fa-link fa-2x"></i>
+                          </div>
+                          <h3 class="card-text">{{ member_stats.total_links }}</h3>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="card text-center">
+                        <div class="card-body">
+                          <h5 class="card-title">{{ info_active_links }}</h5>
+                          <div class="text-success">
+                            <i class="fa-solid fa-check-circle fa-2x"></i>
+                          </div>
+                          <h3 class="card-text">{{ member_stats.active_links }}</h3>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="card text-center">
+                        <div class="card-body">
+                          <h5 class="card-title">{{ info_matched_carts }}</h5>
+                          <div class="text-info">
+                            <i class="fa-solid fa-shopping-cart fa-2x"></i>
+                          </div>
+                          <h3 class="card-text">{{ member_stats.matched_carts }}</h3>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="card text-center">
+                        <div class="card-body">
+                          <h5 class="card-title">{{ info_pending_matches }}</h5>
+                          <div class="text-warning">
+                            <i class="fa-solid fa-clock fa-2x"></i>
+                          </div>
+                          <h3 class="card-text">{{ member_stats.pending_matches }}</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Member Linking Actions -->
+                  <div class="card">
+                    <div class="card-header">
+                      <h5 class="mb-0">Member Linking Actions</h5>
+                    </div>
+                    <div class="card-body">
+                      
+                      <div class="row mb-3">
+                        <div class="col-md-4">
+                          <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modal-add-link">
+                            <i class="fa-solid fa-plus"></i> {{ button_link_member }}
+                          </button>
+                        </div>
+                        <div class="col-md-4">
+                          <button type="button" class="btn btn-warning w-100" id="btn-auto-match">
+                            <i class="fa-solid fa-magic"></i> {{ button_auto_match }}
+                          </button>
+                        </div>
+                        <div class="col-md-4">
+                          <button type="button" class="btn btn-info w-100" id="btn-refresh-stats">
+                            <i class="fa-solid fa-refresh"></i> {{ button_refresh_stats }}
+                          </button>
+                        </div>
+                      </div>
+
+                      {% if member_stats.total_links == 0 %}
+                      <div class="alert alert-info">
+                        <i class="fa-solid fa-info-circle"></i> {{ warning_no_member_links }}
+                      </div>
+                      {% endif %}
+
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Member Link Modal -->
+<div class="modal fade" id="modal-add-link" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ button_link_member }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="form-add-link">
+          <div class="mb-3">
+            <label for="b2b-customer-select" class="form-label">{{ entry_b2b_customer }}</label>
+            <select class="form-select" id="b2b-customer-select" name="b2b_customer_id" required>
+              <option value="">Select B2B Customer...</option>
+              <!-- Options would be populated dynamically -->
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="local-customer-select" class="form-label">{{ entry_local_customer }}</label>
+            <select class="form-select" id="local-customer-select" name="local_customer_id" required>
+              <option value="">Select Local Customer...</option>
+              <!-- Options would be populated dynamically -->
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="store-select" class="form-label">{{ entry_store }}</label>
+            <select class="form-select" id="store-select" name="store_id">
+              {% for store in stores %}
+              <option value="{{ store.store_id }}">{{ store.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" id="btn-save-link">{{ button_link_member }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+$(document).ready(function() {
+    // Form submission
+    $('#form-b2b-marketplace').on('submit', function(e) {
+        e.preventDefault();
+        
+        $.ajax({
+            url: $(this).attr('action'),
+            type: 'POST',
+            data: $(this).serialize(),
+            dataType: 'json',
+            beforeSend: function() {
+                $('#form-b2b-marketplace button[type="submit"]').button('loading');
+            },
+            complete: function() {
+                $('#form-b2b-marketplace button[type="submit"]').button('reset');
+            },
+            success: function(json) {
+                $('.alert').remove();
+                
+                if (json.error) {
+                    if (json.error.warning) {
+                        $('#content > .container-fluid').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa-solid fa-exclamation-circle"></i> ' + json.error.warning + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+                    }
+                }
+                
+                if (json.success) {
+                    $('#content > .container-fluid').prepend('<div class="alert alert-success alert-dismissible"><i class="fa-solid fa-check-circle"></i> ' + json.success + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+                }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+            }
+        });
+    });
+    
+    // Deploy playground
+    $('#btn-deploy-playground, #btn-deploy-playground-main').on('click', function(e) {
+        e.preventDefault();
+        
+        if (confirm('Are you sure you want to deploy the playground environment? This will create database tables and sample data.')) {
+            $.ajax({
+                url: '{{ playground_deploy }}',
+                type: 'POST',
+                dataType: 'json',
+                beforeSend: function() {
+                    $(e.target).prop('disabled', true).html('<i class="fa-solid fa-spinner fa-spin"></i> Deploying...');
+                },
+                success: function(json) {
+                    $('.alert').remove();
+                    
+                    if (json.error) {
+                        $('#content > .container-fluid').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa-solid fa-exclamation-circle"></i> ' + json.error + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+                    }
+                    
+                    if (json.success) {
+                        $('#content > .container-fluid').prepend('<div class="alert alert-success alert-dismissible"><i class="fa-solid fa-check-circle"></i> ' + json.success + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+                        
+                        setTimeout(function() {
+                            location.reload();
+                        }, 2000);
+                    }
+                },
+                complete: function() {
+                    $(e.target).prop('disabled', false).html('<i class="fa-solid fa-rocket"></i> {{ button_deploy_playground }}');
+                }
+            });
+        }
+    });
+    
+    // Auto match carts
+    $('#btn-auto-match').on('click', function(e) {
+        e.preventDefault();
+        
+        $.ajax({
+            url: '{{ member_linking }}',
+            type: 'POST',
+            data: { action: 'auto_match_carts' },
+            dataType: 'json',
+            beforeSend: function() {
+                $(e.target).prop('disabled', true).html('<i class="fa-solid fa-spinner fa-spin"></i> Matching...');
+            },
+            success: function(json) {
+                $('.alert').remove();
+                
+                if (json.error) {
+                    $('#content > .container-fluid').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa-solid fa-exclamation-circle"></i> ' + json.error + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+                }
+                
+                if (json.success) {
+                    $('#content > .container-fluid').prepend('<div class="alert alert-success alert-dismissible"><i class="fa-solid fa-check-circle"></i> ' + json.success + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+                }
+            },
+            complete: function() {
+                $(e.target).prop('disabled', false).html('<i class="fa-solid fa-magic"></i> {{ button_auto_match }}');
+            }
+        });
+    });
+    
+    // Add member link
+    $('#btn-save-link').on('click', function(e) {
+        e.preventDefault();
+        
+        var form = $('#form-add-link');
+        
+        if (form[0].checkValidity()) {
+            $.ajax({
+                url: '{{ member_linking }}',
+                type: 'POST',
+                data: form.serialize() + '&action=link_member',
+                dataType: 'json',
+                beforeSend: function() {
+                    $(e.target).prop('disabled', true);
+                },
+                success: function(json) {
+                    if (json.error) {
+                        alert(json.error);
+                    }
+                    
+                    if (json.success) {
+                        $('#modal-add-link').modal('hide');
+                        location.reload();
+                    }
+                },
+                complete: function() {
+                    $(e.target).prop('disabled', false);
+                }
+            });
+        } else {
+            form[0].reportValidity();
+        }
+    });
+    
+    // Refresh statistics
+    $('#btn-refresh-stats').on('click', function(e) {
+        e.preventDefault();
+        location.reload();
+    });
+});
+</script>
+
+{{ footer }}
