@@ -188,10 +188,21 @@ CREATE TABLE oc_company_mappings (
 
 ### 3.3 Implementation Strategy
 
+**Agoraspace Community Marketplace**:
+The centerpiece of OpenCog integration is **Agoraspace** - an intelligent community marketplace that leverages cognitive AI for:
+- Autonomous collaboration orchestration
+- Emergent marketplace dynamics
+- Collective intelligence networks
+- Self-evolving governance systems
+- Ambient AGI services
+
+For detailed implementation specifications, see: `docs/opencog-agoraspace-roadmap.md`
+
 ```
 upload/system/library/intelligence/
 ├── opencog/
 │   ├── AtomSpaceConnector.php
+│   ├── AgoraspaceOrchestrator.php    # NEW: Community marketplace orchestrator
 │   ├── CognitiveAgent.php
 │   └── PatternMiner.php
 ├── recommendation/
@@ -207,6 +218,21 @@ upload/system/library/intelligence/
     ├── PredictionService.php
     └── FeatureExtractor.php
 ```
+
+**Database Extensions for Agoraspace**:
+- Community member profiles with cognitive capabilities
+- Skills ecosystem with supply/demand dynamics
+- Collaborative project orchestration
+- Reputation and trust networks
+- AGI agent management
+- Market signal intelligence
+
+**Administrative Interface**:
+- Agoraspace management dashboard
+- Community member administration
+- Collaboration orchestration tools
+- AGI agent monitoring and control
+- Market intelligence visualization
 
 ## Implementation Timeline
 
@@ -234,11 +260,15 @@ upload/system/library/intelligence/
 - [ ] Create bidirectional data sync
 - [ ] Add conflict resolution logic
 
-### Sprint 5 (Weeks 9-10): OpenCog Framework
-- [ ] Research OpenCog integration patterns
-- [ ] Implement basic AtomSpace connector
-- [ ] Create simple recommendation engine
-- [ ] Build customer analytics module
+### Sprint 5 (Weeks 9-10): OpenCog Framework & Agoraspace
+- [x] Research OpenCog integration patterns
+- [x] Implement enhanced AtomSpace connector with agoraspace capabilities
+- [x] Create cognitive recommendation engine with collaborative intelligence
+- [x] Build community member profiling and analytics module
+- [x] Design agoraspace community marketplace architecture
+- [x] Implement AGI orchestration services for ambient intelligence
+- [ ] Deploy and test agoraspace community features
+- [ ] Integrate real-time collaboration matching system
 
 ### Sprint 6 (Weeks 11-12): Testing & Optimization
 - [ ] Comprehensive integration testing
