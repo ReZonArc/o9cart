@@ -1,0 +1,367 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="float-end">
+        <a href="{{ settings_url }}" data-bs-toggle="tooltip" title="Settings" class="btn btn-primary">
+          <i class="fa-solid fa-cog"></i> Settings
+        </a>
+      </div>
+      <h1>{{ heading_title }}</h1>
+      <ol class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+          <li class="breadcrumb-item"><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ol>
+    </div>
+  </div>
+  
+  <div class="container-fluid">
+    
+    <!-- OpenCog AtomSpace Status -->
+    <div class="row mb-3">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="card-title mb-0">
+              <i class="fa-solid fa-brain"></i> OpenCog AtomSpace Status
+            </h5>
+          </div>
+          <div class="card-body">
+            <div class="row align-items-center">
+              <div class="col-auto">
+                {% if atomspace_status.status == 'connected' %}
+                  <span class="badge bg-success fs-6">
+                    <i class="fa-solid fa-check-circle"></i> Connected
+                  </span>
+                {% elseif atomspace_status.status == 'disconnected' %}
+                  <span class="badge bg-warning fs-6">
+                    <i class="fa-solid fa-exclamation-triangle"></i> Disconnected
+                  </span>
+                {% else %}
+                  <span class="badge bg-danger fs-6">
+                    <i class="fa-solid fa-times-circle"></i> Error
+                  </span>
+                {% endif %}
+              </div>
+              <div class="col">
+                <div class="text-muted">{{ atomspace_status.message }}</div>
+                {% if atomspace_status.url %}
+                  <small class="text-muted">{{ atomspace_status.url }}:{{ atomspace_status.port }}</small>
+                {% endif %}
+              </div>
+              <div class="col-auto">
+                <button type="button" id="test-connection" class="btn btn-outline-primary btn-sm">
+                  <i class="fa-solid fa-plug"></i> Test Connection
+                </button>
+                <button type="button" id="init-database" class="btn btn-outline-secondary btn-sm">
+                  <i class="fa-solid fa-database"></i> Initialize Database
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Community Statistics -->
+    <div class="row mb-4">
+      <div class="col-xl-3 col-md-6 mb-3">
+        <div class="card bg-primary text-white">
+          <div class="card-body">
+            <div class="row align-items-center">
+              <div class="col">
+                <div class="h3 mb-0">{{ community_stats.total_members }}</div>
+                <div class="text-white-75">Total Members</div>
+              </div>
+              <div class="col-auto">
+                <i class="fa-solid fa-users fa-2x"></i>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <a href="{{ members_url }}" class="text-white text-decoration-none">
+              View Members <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-xl-3 col-md-6 mb-3">
+        <div class="card bg-success text-white">
+          <div class="card-body">
+            <div class="row align-items-center">
+              <div class="col">
+                <div class="h3 mb-0">{{ community_stats.active_collaborations }}</div>
+                <div class="text-white-75">Active Collaborations</div>
+              </div>
+              <div class="col-auto">
+                <i class="fa-solid fa-handshake fa-2x"></i>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <a href="{{ collaborations_url }}" class="text-white text-decoration-none">
+              View Collaborations <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-xl-3 col-md-6 mb-3">
+        <div class="card bg-info text-white">
+          <div class="card-body">
+            <div class="row align-items-center">
+              <div class="col">
+                <div class="h3 mb-0">{{ community_stats.total_skills }}</div>
+                <div class="text-white-75">Skills in Ecosystem</div>
+              </div>
+              <div class="col-auto">
+                <i class="fa-solid fa-cogs fa-2x"></i>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <a href="{{ skills_url }}" class="text-white text-decoration-none">
+              View Skills <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-xl-3 col-md-6 mb-3">
+        <div class="card bg-warning text-dark">
+          <div class="card-body">
+            <div class="row align-items-center">
+              <div class="col">
+                <div class="h3 mb-0">{{ community_stats.active_signals }}</div>
+                <div class="text-dark-75">Market Signals</div>
+              </div>
+              <div class="col-auto">
+                <i class="fa-solid fa-chart-line fa-2x"></i>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <a href="{{ signals_url }}" class="text-dark text-decoration-none">
+              View Signals <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- Recent Activities -->
+      <div class="col-lg-6 mb-4">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="card-title mb-0">
+              <i class="fa-solid fa-clock"></i> Recent Community Activities
+            </h5>
+          </div>
+          <div class="card-body">
+            {% if recent_activities %}
+              <div class="list-group list-group-flush">
+                {% for activity in recent_activities %}
+                  <div class="list-group-item px-0">
+                    <div class="row align-items-center">
+                      <div class="col-auto">
+                        <i class="fa-solid fa-user-plus text-primary"></i>
+                      </div>
+                      <div class="col">
+                        <div class="fw-bold">{{ activity.title }}</div>
+                        <div class="text-muted small">{{ activity.type|replace({'_': ' '})|title }}</div>
+                      </div>
+                      <div class="col-auto text-muted small">
+                        {{ activity.created_at|date('M j, Y') }}
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            {% else %}
+              <div class="text-center text-muted py-4">
+                <i class="fa-solid fa-inbox fa-3x mb-3"></i>
+                <p>No recent activities to display.</p>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Active Market Signals -->
+      <div class="col-lg-6 mb-4">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="card-title mb-0">
+              <i class="fa-solid fa-satellite-dish"></i> Active Market Signals
+            </h5>
+          </div>
+          <div class="card-body">
+            {% if market_signals %}
+              <div class="list-group list-group-flush">
+                {% for signal in market_signals %}
+                  <div class="list-group-item px-0">
+                    <div class="row align-items-center">
+                      <div class="col-auto">
+                        {% if signal.signal_type == 'demand_spike' %}
+                          <i class="fa-solid fa-arrow-trend-up text-success"></i>
+                        {% elseif signal.signal_type == 'supply_shortage' %}
+                          <i class="fa-solid fa-exclamation-triangle text-warning"></i>
+                        {% elseif signal.signal_type == 'opportunity' %}
+                          <i class="fa-solid fa-lightbulb text-info"></i>
+                        {% else %}
+                          <i class="fa-solid fa-chart-line text-primary"></i>
+                        {% endif %}
+                      </div>
+                      <div class="col">
+                        <div class="fw-bold">{{ signal.entity_name|default('Unknown Entity') }}</div>
+                        <div class="text-muted small">{{ signal.signal_type|replace({'_': ' '})|title }}</div>
+                      </div>
+                      <div class="col-auto">
+                        <div class="row g-1">
+                          <div class="col-auto">
+                            <span class="badge bg-primary">{{ (signal.signal_strength * 100)|round }}%</span>
+                          </div>
+                          <div class="col-auto">
+                            <span class="badge bg-secondary">{{ (signal.confidence_level * 100)|round }}%</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            {% else %}
+              <div class="text-center text-muted py-4">
+                <i class="fa-solid fa-satellite-dish fa-3x mb-3"></i>
+                <p>No active market signals detected.</p>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AGI Agents Status -->
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="card-title mb-0">
+              <i class="fa-solid fa-robot"></i> AGI Agent Status
+            </h5>
+          </div>
+          <div class="card-body">
+            {% if agi_agents %}
+              <div class="row">
+                {% for agent in agi_agents %}
+                  <div class="col-lg-4 col-md-6 mb-3">
+                    <div class="card bg-light">
+                      <div class="card-body">
+                        <div class="row align-items-center">
+                          <div class="col-auto">
+                            {% if agent.status == 'active' %}
+                              <i class="fa-solid fa-circle text-success"></i>
+                            {% elseif agent.status == 'learning' %}
+                              <i class="fa-solid fa-circle text-warning"></i>
+                            {% else %}
+                              <i class="fa-solid fa-circle text-secondary"></i>
+                            {% endif %}
+                          </div>
+                          <div class="col">
+                            <div class="fw-bold">{{ agent.name }}</div>
+                            <div class="text-muted small">{{ agent.specialization|replace({'_': ' '})|title }}</div>
+                          </div>
+                          <div class="col-auto">
+                            <span class="badge bg-info">{{ (agent.trust_score * 100)|round }}%</span>
+                          </div>
+                        </div>
+                        <div class="mt-2">
+                          <small class="text-muted">
+                            {{ agent.total_interactions }} interactions
+                          </small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            {% else %}
+              <div class="text-center text-muted py-4">
+                <i class="fa-solid fa-robot fa-3x mb-3"></i>
+                <p>No AGI agents are currently active.</p>
+                <p><small>Initialize the database to activate AGI services.</small></p>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    // Test Connection
+    $('#test-connection').on('click', function() {
+        var $btn = $(this);
+        $btn.prop('disabled', true).html('<i class="fa-solid fa-spinner fa-spin"></i> Testing...');
+        
+        $.ajax({
+            url: 'index.php?route=marketplace/agoraspace/testConnection&user_token={{ user_token }}',
+            type: 'POST',
+            dataType: 'json',
+            success: function(json) {
+                if (json.success) {
+                    $('#content').prepend('<div class="alert alert-success alert-dismissible"><i class="fa-solid fa-check-circle"></i> ' + json.success + '<button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+                } else if (json.error) {
+                    $('#content').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa-solid fa-exclamation-circle"></i> ' + json.error + '<button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+                }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                $('#content').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa-solid fa-exclamation-circle"></i> Connection test failed.<button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+            },
+            complete: function() {
+                $btn.prop('disabled', false).html('<i class="fa-solid fa-plug"></i> Test Connection');
+            }
+        });
+    });
+    
+    // Initialize Database
+    $('#init-database').on('click', function() {
+        if (!confirm('This will initialize/update the Agoraspace database tables. Continue?')) {
+            return;
+        }
+        
+        var $btn = $(this);
+        $btn.prop('disabled', true).html('<i class="fa-solid fa-spinner fa-spin"></i> Initializing...');
+        
+        $.ajax({
+            url: 'index.php?route=marketplace/agoraspace/initializeDatabase&user_token={{ user_token }}',
+            type: 'POST',
+            dataType: 'json',
+            success: function(json) {
+                if (json.success) {
+                    $('#content').prepend('<div class="alert alert-success alert-dismissible"><i class="fa-solid fa-check-circle"></i> ' + json.success + '<button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+                    setTimeout(function() {
+                        location.reload();
+                    }, 2000);
+                } else if (json.error) {
+                    $('#content').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa-solid fa-exclamation-circle"></i> ' + json.error + '<button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+                }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                $('#content').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa-solid fa-exclamation-circle"></i> Database initialization failed.<button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+            },
+            complete: function() {
+                $btn.prop('disabled', false).html('<i class="fa-solid fa-database"></i> Initialize Database');
+            }
+        });
+    });
+});
+</script>
+
+{{ footer }}
