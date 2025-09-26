@@ -1,13 +1,13 @@
 <?php return array(
     'root' => array(
         'name' => 'opencart/opencart',
-        'pretty_version' => 'dev-master',
-        'version' => 'dev-master',
-        'reference' => 'fe69569d59913ba23afaa72d7bb1e07476ba797a',
+        'pretty_version' => 'dev-copilot/fix-4b61ba30-936f-43bc-aa7d-8855b1e45046',
+        'version' => 'dev-copilot/fix-4b61ba30-936f-43bc-aa7d-8855b1e45046',
+        'reference' => 'befdb000cd2989a00e80b11bf6e3ab0b78e724ca',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../../../../',
         'aliases' => array(),
-        'dev' => true,
+        'dev' => false,
     ),
     'versions' => array(
         'aws/aws-crt-php' => array(
@@ -65,9 +65,9 @@
             'dev_requirement' => false,
         ),
         'opencart/opencart' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'reference' => 'fe69569d59913ba23afaa72d7bb1e07476ba797a',
+            'pretty_version' => 'dev-copilot/fix-4b61ba30-936f-43bc-aa7d-8855b1e45046',
+            'version' => 'dev-copilot/fix-4b61ba30-936f-43bc-aa7d-8855b1e45046',
+            'reference' => 'befdb000cd2989a00e80b11bf6e3ab0b78e724ca',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../../../../',
             'aliases' => array(),
